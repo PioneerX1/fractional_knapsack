@@ -32,7 +32,7 @@ class KnapsackItem {
 };
 
 bool compare(KnapsackItem s1, KnapsackItem s2) {
-  return s1.getVPW() < s2.getVPW();
+  return s1.getVPW() > s2.getVPW();
 }
 
 
@@ -40,10 +40,13 @@ double get_optimal_value(int capacity, vector<int> weights, vector<int> values) 
   double value = 0.0;
   int numOfItems = weights.size();
   vector<KnapsackItem> items;
+  double vpw = 0.00;
+
 
   // first, initialize a vector of KnapsackItem objects
   for (int i = 0; i < numOfItems; i++) {
-    items.push_back(KnapsackItem(values[i], weights[i], values[i]/weights[i]));
+    vpw = (double)values[i]/(double)weights[i];
+    items.push_back(KnapsackItem(values[i], weights[i], vpw));
   }
 
 
@@ -53,8 +56,8 @@ double get_optimal_value(int capacity, vector<int> weights, vector<int> values) 
   // then try to populate knapsack with each item
   // check each time if item must be split
 
-  for (int i = 0; i < numOfItems; i++) {
-    value = value + items[i].getVPW();
+  for (int i = 0; i < items.size(); i++) {
+    std::cout << items[i].getVPW() << std::endl;
   }
 
   return value;
